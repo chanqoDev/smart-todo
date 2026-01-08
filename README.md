@@ -14,3 +14,24 @@ The React Compiler is not enabled on this template because of its impact on dev 
 ## Expanding the ESLint configuration
 
 If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+
+
+##  NOTE****  Package Manager 
+This project uses pnpm. Please use pnpm for installs and scripts.
+```pnpm install
+pnpm rebuild
+pnpm dev```
+
+# for MacOS older versions MacOS <= 11 
+pnpm add -D vite@4.5.3 @vitejs/plugin-react@4.2.1 esbuild@0.17.19
+
+
+## TailwindCSS older version due to macOS version 
+pnpm add -D tailwindcss@3.4.17 postcss autoprefixer
+pnpm dlx tailwindcss@3.4.17 init -p
+
+npm → npx
+pnpm → pnpm dlx
+
+npm i -g pnpm
+pnpm -v
