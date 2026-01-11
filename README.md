@@ -32,3 +32,7 @@ pnpm dlx tailwindcss@3.4.17 init -p
 ## Install Globally
 npm i -g pnpm
 pnpm -v
+
+
+### React Icons 
+pnpm install react-icons
