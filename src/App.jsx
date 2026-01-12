@@ -7,7 +7,7 @@ const STORAGE_KEY = 'smart-todo.todos';
 
 
 function App() {
-    // lazy initializer
+  // lazy initializer
   const [todos, setTodos] = useState(() => {
     try {
       // saved item 
@@ -61,6 +61,15 @@ function App() {
     return true;
   });
 
+  useEffect(() => {
+    if (focusId == null) return;
+    const existsInVisible = visibleTodos.some(t => t.id === focusId);
+    if (!existsInVisible && visibleTodos.length) {
+      setFocusId(visibleTodos[visibleTodos.length - 1].id);
+    }
+  }, [filter, visibleTodos, focusId]);
+
+
   const clearCompleted = () => {
     setTodos((prev) => {
       const kept = prev.filter((todo) => !todo.completed);
@@ -71,7 +80,7 @@ function App() {
   return (
     <>
       <Header />
-      <h2 className="mt-9 mb-2 text-[#23586a] text-4xl font-bold tracking-tighter text-center md:text-5xl lg:text-6xl">Todo List</h2>
+      <h2 className="mt-9 mb-2 py-20 text-[#23586a] text-4xl font-bold tracking-tighter text-center md:text-5xl lg:text-6xl">Today’s Focus</h2>
       <div className="mx-auto w-full max-w-4xl px-4 mt-6">
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex items-center gap-2">
@@ -106,8 +115,8 @@ function App() {
               type="button"
               onClick={() => setFilter(k)}
               className={`px-3 py-1.5 rounded-full text-sm border transition ${filter === k
-                  ? "bg-slate-900 text-white border-slate-900"
-                  : "bg-white text-slate-700 border-slate-200 hover:bg-slate-50"
+                ? "bg-slate-900 text-white border-slate-900"
+                : "bg-white text-slate-700 border-slate-200 hover:bg-slate-50"
                 }`}
             >
               {k[0].toUpperCase() + k.slice(1)}
@@ -119,6 +128,10 @@ function App() {
       <main className='flex justify-center align-center text-center h-auto max-w-full'>
         <TodoList todos={visibleTodos} onToggle={onToggle} onEdit={onEdit} onDelete={onDelete} onAdd={onAdd} focusId={focusId} onRequestFocus={setFocusId} />
       </main>
+      <footer className="mx-auto max-w-4xl px-4 mt-3 text-xs text-slate-500">
+        Tips: ↑/↓ to navigate, Enter to add (last row), Backspace on empty to delete, Esc to blur.
+      </footer>
+
     </>
   )
 }
