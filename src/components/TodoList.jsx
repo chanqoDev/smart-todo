@@ -10,7 +10,7 @@ export default function TodoList({
   onRequestFocus,
 }) {
   return (
-    <ul className="w-full max-w-4xl p-6 mt-[126px] border rounded">
+<ul className="w-full max-w-4xl p-4 mt-6 border rounded-lg bg-white shadow-sm space-y-3">
       {todos.map((t, idx) => {
         const prevId = todos[idx - 1]?.id ?? null;
         const nextId = todos[idx + 1]?.id ?? null;
