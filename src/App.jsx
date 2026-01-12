@@ -8,7 +8,8 @@ const STORAGE_KEY = 'smart-todo.todos';
 
 
 function App() {
-  // const [todos, setTodos] = useState([{ id: 1, text: "", completed: false }]);
+  const [focusId, setFocusId] = useState(null); 
+
   // lazy initializer
   const [todos, setTodos] = useState(() => {
     try {
@@ -30,10 +31,9 @@ function App() {
   }, [todos])
 
   const onAdd = () => {
-  setTodos((prev) => [
-    ...prev,
-    { id: Date.now(), text: "", completed: false }
-  ]);
+  const newId = Date.now();
+  setTodos((prev) => [...prev, { id: newId, text: "", completed: false }]);
+  setFocusId(newId);
 };
   const onToggle = (id) =>
     setTodos((prev) =>
@@ -60,7 +60,7 @@ function App() {
       <Header />
       <h2 className="mt-9 mb-2 text-[#23586a] text-4xl font-bold tracking-tighter text-center md:text-5xl lg:text-6xl">Todo List</h2>
       <main className='flex justify-center align-center text-center h-auto max-w-full'>
-        <TodoList todos={todos} onToggle={onToggle} onEdit={onEdit} onDelete={onDelete} onAdd={onAdd} />
+        <TodoList todos={todos} onToggle={onToggle} onEdit={onEdit} onDelete={onDelete} onAdd={onAdd} focusId={focusId} onRequestFocus={setFocusId} />
       </main>
     </>
   )
